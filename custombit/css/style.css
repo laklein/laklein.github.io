@@ -1,0 +1,608 @@
+body {
+  /*font-family: 'Questrial', sans-serif;*/
+  font-family: 'Helvetica', sans-serif;
+}
+
+a, a:link, a:visited, a:hover {
+  text-decoration: none;
+}
+
+
+/***** logo and Navbar *****/
+
+nav {
+  height: 85px;
+  line-height: 85px;
+  font-size: 24px;
+  font-family: 'Ek Mukta', sans-serif;
+  font-weight: 300;
+  position: relative;
+}
+
+.navbar-nav {
+  margin: 0px -15px;
+}
+
+.navbar-header {
+  background-color: #FFF;
+}
+
+#logo {
+  display: block;
+  margin-left: 10px;
+}
+
+#logo img {
+  width: 280px;
+  display: inline;
+  margin: 0;
+  border-radius: 0;
+}
+
+.nav>li>a {
+  padding: 0 8px;
+  color: #696969;
+  background-color: #EEE;
+  border-bottom: 1px solid;
+  z-index: 100;
+  font-size: 2rem;
+}
+
+.nav>li>a:hover, .nav>li>a:focus, .nav>li>a:active {
+  color: #000;
+  background-color: #A41D21;
+}
+
+.navbar-nav>li>a {
+  line-height: 50px;;
+}
+
+#about-link, #work-link, #blog-link, #contact-link, #phone-link {
+  font-size:1rem;
+}
+
+li a.phone-number {
+  color: #A51E23;
+  font-weight: 600;
+}
+
+button.navbar-toggle {
+  font-size: 33px;
+  border: none;
+  padding: 0;
+  margin: 0 15px 0 0;
+}
+
+img#call-icon {
+  width: 50px;
+  display: inline;
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  right: 55px;
+}
+
+i.fa.fa-bars.menu-icon {
+  position: relative;
+  top: 3px;
+}
+
+/***** Main hero section links to -> about us *****/
+
+#hero {
+  width: 100%;
+  background: url(../images/hero.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#hero p {
+  text-align: center;
+  max-width: 600px;
+  z-index: 100;
+  color: #CCC;
+  font-size: 2.5rem;
+  margin: 60px auto 40px;
+  padding: 15px;
+}
+
+#learn-more-link {
+  text-align: center;
+  min-width: 90px;
+  margin: 0 auto;
+  display: block;
+}
+#learn-more {
+  display: inline-block;
+  margin-bottom: 100px;
+  padding: 5px 10px 4px;
+  color: #FFF;
+  font-weight: 100;
+  font-size: 1.25rem;
+  text-align: center;
+  background-color: #A51E23;
+}
+
+#learn-more:hover {
+  background-color: #FFF;
+  color: #A51E23;
+  font-weight: 200;
+  cursor: pointer;
+}
+
+ /***** What We Do section *****/
+
+ #what-we-do {
+   padding-bottom: 40px;
+ }
+
+ .mainpage-headers {
+   text-align: center;
+   color: #A51E23;
+   margin: 100px auto;
+   font-weight: 400;
+ }
+
+.row {
+   margin: 0;
+ }
+
+ .service {
+   margin-bottom: 60px;
+ }
+
+ .service h3{
+   margin: 8px 0 5px;
+ }
+
+ .service p {
+   margin: 10px 5px 0 0;
+   font-size: 2rem;
+ }
+
+ /***** Who We Are section *****/
+
+ #who-we-are {
+   width: 100%;
+   background: url(../images/teamGroup.jpg) no-repeat top left ;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   text-align: center;
+   color: #EEE;
+   font-weight: 200;
+   padding-bottom: 80px;
+ }
+
+ #who-we-are h1 {
+   padding: 100px 0 45px;
+   font-weight: 200;
+   font-size: 3.4rem;
+ }
+
+ #who-we-are h3 {
+   font-weight: 200;
+   margin-bottom: 30px;
+ }
+
+ #view-work-link {
+   text-align: center;
+   min-width: 95px;
+   margin: 0 auto;
+   display: block;
+ }
+
+ #view-work {
+   display: inline-block;
+   padding: 5px 10px 4px;
+   color: #FFF;
+   font-size: 1.25rem;
+   text-align: center;
+   border: 1px solid;
+   margin-bottom: 10px;
+ }
+
+ #view-work:hover {
+   background-color: #FFF;
+   color: #A41D21;
+   cursor: pointer;
+   border: 1px solid #FFF;
+   font-weight: 200;
+ }
+
+/***** Get Technical section *****/
+
+#get-technical {
+  padding: 0;
+}
+
+#get-technical h2{
+  font-size: 3.1rem;
+}
+
+#dev-icons {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#dev-icons a {
+  display: inline-block;
+}
+
+#dev-icons a svg {
+  margin-bottom: 10px;
+}
+
+#dev-icons a:hover, #dev-icons a:hover > svg path, #dev-icons a.active > svg path {
+  fill: #A41D21;
+}
+
+#tech-descriptions {
+  padding: 15px;
+}
+
+#tech-descriptions p{
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+
+/***** Footer *****/
+
+footer {
+  background-color: #282829;
+  color: #EEE;
+  text-align: center;
+  padding: 30px 0 10px;
+}
+
+footer ul {
+  list-style: none;
+  max-width: 287px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+footer ul li {
+  float: left;
+  padding: 20px 10px;
+}
+
+footer ul li a {
+  text-decoration: none;
+  color: #ab3333;
+}
+
+footer ul li a:hover {
+  text-decoration: none;
+  color: #DDD;
+}
+
+footer h4 {
+  font-weight: 200;
+  clear: both;
+  color: #EEE;
+}
+
+footer p {
+  font-weight: 100;
+  margin-bottom: 0;
+}
+
+
+/***** About Us Page *****/
+
+#about-us {
+  margin-top: 0px;
+  width: 100%;
+  background: url(../images/programer.jpg) no-repeat top left;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#description {
+  width: 340px;
+  margin: 5px;
+  padding: 50px 0;
+}
+
+#description p {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+img.avatar {
+  margin-top: 20px;
+  outline: 20px solid #333;
+
+}
+
+#our-team h3 {
+  margin-top: 0;
+}
+
+#our-team p{
+  font-size: 1.6rem;
+}
+
+/***** Work Page *****/
+.jumbotron h2 {
+  text-align: center;
+}
+
+
+/***** Blog Page *****/
+#blog-posts {
+  padding-top: 50px;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.divider {
+  margin: 0;
+}
+
+.post-title {
+  color: #A41D21;
+  font-size: 1.75rem;
+}
+
+pre {
+  overflow-x: scroll;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+/***** Contact Page *****/
+
+.contact-form {
+    margin: 10% auto;
+    max-width: 800px;
+    background: #EEE;
+    color: #888;
+    border:1px solid #E4E4E4;
+}
+.contact-form h1 {
+    font-size: 28px;
+    text-align: center;
+    margin: 15px 0 30px;
+    padding-bottom: 5px;
+    display: block;
+    border-bottom:1px solid #E4E4E4;
+}
+.contact-form h1>span {
+    font-size: 35px;
+    font-weight: normal;
+    color: #EF4D4D;
+}
+.contact-form label {
+    display: block;
+    margin: 0px;
+}
+.contact-form label>span {
+    float: left;
+    width: 20%;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    padding-right: 10px;
+    color: #888;
+}
+.contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea {
+    border: 1px solid #DADADA;
+    color: #888;
+    height: 30px;
+    margin: 0 6px 18px 0px;
+    outline: 0 none;
+    padding: 0 5px;
+    width: 70%;
+    font-size: 12px;
+    line-height:15px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.contact-form textarea{
+    height:100px;
+    padding: 5px;
+}
+
+.contact-form label>span.button-box {
+  display: inline-block;
+  margin: 0 6px 30px 12px;
+  outline: 0 none;
+  width: 70%;
+}
+.contact-form .button {
+    background: #A41D21;
+    display: inline-block;
+    border: none;
+    padding: 8px 22px;
+    font-size: 14px;
+    color: #F2EEEC;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.contact-form .button:hover {
+    background: #CD2B2B;
+}
+
+.clearfix:after {
+   content: ".";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+input:focus {
+  outline: none;
+}
+
+
+/***** Media Queries *****/
+
+@media only screen and (max-width: 430px) {
+  #logo img {
+    width: 260px;
+  }
+  #about-link, #work-link, #blog-link, #contact-link, #phone-link {
+    font-size:1.2rem;
+  }
+  #description {
+    width: 95%;
+    margin: 0 auto;
+    padding: 50px 0;
+  }
+
+  #description p {
+    font-size: 1.75rem;
+    margin: 20px 0;
+  }
+  #who-we-are h1 {
+    font-size: 2.9rem;
+  }
+}
+
+@media only screen and (min-width: 431px) and (max-width: 500px) {
+  #description {
+    width: 80%;
+    margin: 5px;
+  }
+  #description p {
+    font-size: 1.85rem;
+    margin: 20px 0;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  #hero p {
+    margin: 45px auto 25px;
+    font-size: 1.75rem;
+    max-width: 400px;
+    padding: 10px;
+  }
+  #learn-more {
+    margin-bottom: 60px;
+  }
+  .mainpage-headers {
+    font-size: 2.75rem;
+    margin: 75px auto;
+  }
+  .service p {
+    font-size: 1.5rem;
+  }
+}
+/* Small devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #logo img {
+    width: 320px;
+  }
+  .nav>li>a {
+    background-color: #FFF;
+    border-bottom: none;
+  }
+  .nav>li>a:hover, .nav>li>a:focus, .nav>li>a:active {
+    color: #000;
+    background-color: #FFF;
+  }
+  .navbar-nav>li>a {
+    line-height: inherit;
+  }
+  #about-link, #work-link, #blog-link, #contact-link, #phone-link {
+    font-size:1.26rem;
+  }
+  #hero p {
+    margin: 150px auto 60px;
+    font-size: 3.25rem;
+    max-width: 700px;
+    padding: 15px;
+  }
+  #learn-more {
+    font-size: 1.6rem;
+    margin-bottom: 100px;
+  }
+  .service p {
+    font-size: 1.75rem;
+  }
+  #description {
+    width: 40rem;
+    padding: 15px;
+  }
+  #view-work {
+    font-size: 1.75rem;
+  }
+  #who-we-are {
+    padding-bottom: 100px;
+  }
+  #who-we-are h1 {
+    padding: 150px 0 100px;
+    font-size: 4.25rem;
+  }
+  #who-we-are h3 {
+    font-size: 3rem;
+    margin-bottom: 50px;
+  }
+  #dev-icons {
+    max-width: 100%;
+  }
+  #tech-descriptions p{
+    font-size: 2rem;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #logo img {
+    width: 350px;
+  }
+  .nav>li>a, #about-link, #work-link, #blog-link, #contact-link, #phone-link {
+    font-size: 2.5rem;
+    padding: 0 10px;
+  }
+  #about-link, #work-link, #blog-link, #contact-link, #phone-link {
+    font-size:1.25rem;
+  }
+
+  #hero p {
+    margin: 170px auto 80px;
+  }
+  #learn-more {
+    font-size: 2rem;
+    margin-bottom: 150px;
+  }
+  .service p {
+    font-size: 2.15rem;
+  }
+  #description {
+    width: 40rem;
+    padding: 50px 25px;
+  }
+
+  #description p {
+    font-size: 2rem;
+    margin: 25px 0;
+  }
+  #view-work {
+    font-size: 2rem;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200) {
+  #hero p {
+    margin: 240px auto 110px;
+  }
+  #learn-more {
+    margin-bottom: 250px;
+  }
+  p.service-description {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Custom Bit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Ek+Mukta:200,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <!-- start nav -->
+  <nav>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="tel:+1-435-319-0852"><img id="call-icon" src="images/call.svg" alt=""/></a>
+        <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#myNavbar">
+          <i class="fa fa-bars menu-icon"></i>
+        </button>
+        <a id="logo" class="pull-left" href="index.html"><img src="images/logo.svg" alt=""/></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="about.html">About</a></li>
+          <li><a href="our_work.html">Work</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="phone-number hidden-xs visible-sm visible-md visible-lg" href="tel:+1-435-319-0852">435-319-0852</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- end nav -->
+
+  <hr class="divider" />
+
+<section id="contact">
+  <form action="#" class="contact-form clearfix">
+      <h1>Contact Us</h1>
+      <label>
+          <span>Name</span>
+          <input id="name" type="text" name="name"/>
+      </label>
+
+      <label>
+          <span>Email</span>
+          <input id="email" type="email" name="email"/>
+      </label>
+
+      <label>
+          <span>Message</span>
+          <textarea id="message" name="message"></textarea>
+      </label>
+       <label>
+          <span>&nbsp;</span>
+            <span class="button-box"><input type="submit" name="submit" class="button" value="Send" /></span>
+      </label>
+  </form>
+  </section>
+
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><div style="overflow:hidden;height:500px;width:600px;float:left;"><div id="gmap_canvas" style="height:500px;width:600px;"></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style><a class="google-map-code" href="http://premium-wordpress-themes.org" id="get-map-data">wordpress themes</a></div><script type="text/javascript"> function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(37.090101,-113.58433500000001),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(37.090101, -113.58433500000001)});infowindow = new google.maps.InfoWindow({content:"<b>Custom Bit</b><br/>1060 S. Main St.<br/> St. George" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+  <img src="images/contact/building.jpg" alt=""/>
+
+  <footer>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="our_work.html">Work</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <h4>Custom Built Mobile and Web Applications</h4>
+    <p>&#169; 2014 Custom Bit | All Rights Reserved
+  </footer>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61918198-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

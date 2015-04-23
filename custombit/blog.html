@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <title>Custom Bit Blog</title>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Ek+Mukta:200,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/hyde.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/blog/apple-touch-icon-144-precomposed.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- start nav -->
+<nav>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="tel:+1-435-319-0852"><img id="call-icon" src="images/call.svg" alt=""/></a>
+      <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#myNavbar">
+        <i class="fa fa-bars menu-icon"></i>
+      </button>
+      <a id="logo" class="pull-left" href="index.html"><img src="images/logo.svg" alt=""/></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="about-link" href="about.html">About</a></li>
+        <li><a id="work-link" href="our_work.html">Work</a></li>
+        <li><a id="blog-link" href="blog.html">Blog</a></li>
+        <li><a id="contact-link" href="contact.html">Contact</a></li>
+        <li><a id="phone-link" class="special phone-number hidden-xs visible-sm visible-md visible-lg" href="tel:+1-435-319-0852">435-319-0852</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end nav -->
+
+<hr class="divider" />
+
+<div id="blog-posts" class="content container">
+    <div class="post">
+<h2 class="post-title">UIView Inset Effect</h2>
+<span class="post-date">18 Mar 2015</span>
+<h3>By Nate Armstrong -> Custom Bit Programmer</h3>
+<p>I know shadows have been kicked to the curb with iOS 7 but I&#39;m still a sucker for
+a nice inset effect.</p>
+
+<h2>The Mockup</h2>
+
+<p>Here is what the design (mocked up in <a href="http://bohemiancoding.com/sketch/">Sketch 3</a>)
+called for:</p>
+
+<p><img src='images/blog/mockup.png' width='350px' /></p>
+
+<p>In the example above the inset view is being used to contain a text field but
+as you will see later on the inset will work and look okay with many inner views.</p>
+
+<p>The inset effect view consists of a few attributes:</p>
+
+<ul>
+<li>background color that is slightly darker than its surroundings</li>
+<li>dark inner shadow</li>
+<li>faint outer shadow</li>
+</ul>
+
+<p><small>
+<i><b>Hint:</b> I&#39;m not a designer but the textured background on the surrounding view
+in combination with the solid background of the inner view makes for a nice effect
+in my opinion. Also, any and all design tips are welcome in the comments.</i>
+</small></p>
+
+<h2>The Implementation</h2>
+
+<p>I will walk you through how I accomplished this effect though I am sure there are
+many different ways including superior alternatives.</p>
+
+<h3>Shadows</h3>
+
+<p>A <code>UIView</code> has a <code>layer</code> property which, as a <code>CALayer</code>, provides us with some
+helpful properties for applying shadows. Those properties do not help us with
+what Sketch would call <em>Inner Shadows</em> so we&#39;ll have to get sneaky for the inner
+shadow but the outer shadow will be straightforward.</p>
+
+<h4>Inner Shadow</h4>
+
+<p>I used a <a href="https://github.com/inamiy/YIInnerShadowView">YIInnerShadowView</a> to accomplish
+the inner shadow effect with a little bit of tweaking which I will get to in a minute.
+I included the class as a pod using cocoapods.</p>
+
+<h4>Outer Shadow</h4>
+
+<p>As I mentioned above the <code>CALayer</code> class has a few properties for applying shadows.
+Specifically <code>shadowRadius</code>, <code>shadowColor</code>, <code>shadowOpacity</code> and <code>shadowOffset</code> will
+be of great use to us.</p>
+
+<h2>FancyInsetView</h2>
+
+<p>That&#39;s what we&#39;ll call it, <code>FancyInsetView</code>. Assuming you checked out the <code>YIInnerShadowView</code>
+class you might think it would be as easy as something like:</p>
+<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// initialize the view using YIInnerShadowView</span>
+<span class="k">let</span> <span class="n">myView</span> <span class="o">=</span> <span class="n">YIInnerShadowView</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="n">rect</span><span class="p">)</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">red</span><span class="p">:</span> <span class="mi">132</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">green</span><span class="p">:</span> <span class="mi">43</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">blue</span><span class="p">:</span> <span class="mi">10</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1">// round the corners</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">clipsToBounds</span> <span class="o">=</span> <span class="nb">true</span>
+
+<span class="c1">// customize the YIInnerShadow</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">shadowRadius</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">shadowColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">white</span><span class="p">:</span> <span class="mi">4</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">shadowOffset</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">shadowOpacity</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="c1">// give it a faint outer shadow</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">masksToBounds</span> <span class="o">=</span> <span class="nb">false</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">shadowRadius</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">shadowColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">red</span><span class="p">:</span> <span class="mi">197</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">green</span><span class="p">:</span> <span class="mi">88</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">blue</span><span class="p">:</span> <span class="mi">53</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">).</span><span class="bp">CGColor</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">shadowOpacity</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">shadowOffset</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</code></pre></div>
+<p>With that most basic approach we end up with:</p>
+
+<p><img src='images/blog/fail1.png' width='300px' /></p>
+
+<p>Which is close but not quite what we want. If you look closely, the
+<code>YIInnerShadowView</code> is creating a dark, thin border around the view and the
+corners are not rounded. The reason the corners are not rounded is because of</p>
+<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">myView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">masksToBounds</span> <span class="o">=</span> <span class="nb">false</span>
+</code></pre></div>
+<p>Without that line the inner shadow view rounds like we want but the outer shadow
+disappears. That is because in order for the outer shadow to show up we must set
+<code>layer.masksToBounds</code> to <code>false</code>. So we have a problem.</p>
+
+<h3>The Solution</h3>
+
+<p>We need rounded corners as well as a drop shadow so my solution involves an additional
+view nested inside that contains the <code>YIInnerShadowView</code> and the outer view has the
+outer shadow properties set.</p>
+
+<p>I made the inner view just a pixel bigger than the container in order to hide the thin border.</p>
+<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="nl">FancyInsetView</span><span class="p">:</span> <span class="bp">UIView</span> <span class="p">{</span>
+
+<span class="n">lazy</span> <span class="k">var</span> <span class="nl">innerShadow</span><span class="p">:</span> <span class="n">YIInnerShadowView</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="n">view</span> <span class="o">=</span> <span class="n">YIInnerShadowView</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="n">CGRectZero</span><span class="p">)</span>
+  <span class="n">view</span><span class="p">.</span><span class="n">shadowRadius</span> <span class="o">=</span> <span class="mf">2.0</span>
+  <span class="n">view</span><span class="p">.</span><span class="n">shadowColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">white</span><span class="p">:</span> <span class="mi">4</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="n">view</span><span class="p">.</span><span class="n">shadowOffset</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="n">view</span><span class="p">.</span><span class="n">shadowOpacity</span> <span class="o">=</span> <span class="mf">0.5</span>
+  <span class="k">return</span> <span class="n">view</span>
+<span class="p">}()</span>
+
+<span class="k">var</span> <span class="nl">innerView</span><span class="p">:</span> <span class="bp">UIView</span><span class="o">!</span>
+
+<span class="k">var</span> <span class="nl">cornerRadius</span><span class="p">:</span> <span class="n">CGFloat</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="p">{</span>
+  <span class="kr">didSet</span> <span class="p">{</span>
+    <span class="n">layer</span><span class="p">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="n">cornerRadius</span>
+    <span class="n">innerView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="n">cornerRadius</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">required</span> <span class="k">init</span><span class="p">(</span><span class="n">coder</span> <span class="nl">aDecoder</span><span class="p">:</span> <span class="bp">NSCoder</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">(</span><span class="nl">coder</span><span class="p">:</span> <span class="n">aDecoder</span><span class="p">)</span>
+  <span class="n">setup</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kr">override</span> <span class="k">init</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">CGRect</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="n">frame</span><span class="p">)</span>
+  <span class="n">setup</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">red</span><span class="p">:</span> <span class="mi">132</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">green</span><span class="p">:</span> <span class="mi">43</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">blue</span><span class="p">:</span> <span class="mi">10</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="n">clipsToBounds</span> <span class="o">=</span> <span class="nb">true</span>
+  <span class="n">layer</span><span class="p">.</span><span class="n">masksToBounds</span> <span class="o">=</span> <span class="nb">false</span>
+
+  <span class="c1">// inner shadow</span>
+  <span class="n">innerView</span> <span class="o">=</span> <span class="bp">UIView</span><span class="p">()</span>
+  <span class="n">innerView</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">masksToBounds</span> <span class="o">=</span> <span class="nb">true</span>
+  <span class="n">innerView</span><span class="p">.</span><span class="n">addSubview</span><span class="p">(</span><span class="n">innerShadow</span><span class="p">)</span>
+  <span class="n">insertSubview</span><span class="p">(</span><span class="n">innerView</span><span class="p">,</span> <span class="nl">atIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+
+  <span class="c1">// outer shadow</span>
+  <span class="n">layer</span><span class="p">.</span><span class="n">shadowRadius</span> <span class="o">=</span> <span class="mf">2.0</span>
+  <span class="n">layer</span><span class="p">.</span><span class="n">shadowColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">(</span><span class="nl">red</span><span class="p">:</span> <span class="mi">197</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">green</span><span class="p">:</span> <span class="mi">88</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">blue</span><span class="p">:</span> <span class="mi">53</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="nl">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">).</span><span class="bp">CGColor</span>
+  <span class="n">layer</span><span class="p">.</span><span class="n">shadowOpacity</span> <span class="o">=</span> <span class="mf">1.0</span>
+  <span class="n">layer</span><span class="p">.</span><span class="n">shadowOffset</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">override</span> <span class="k">func</span> <span class="n">layoutSubviews</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nb">super</span><span class="p">.</span><span class="n">layoutSubviews</span><span class="p">()</span>
+  <span class="n">innerView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">bounds</span>
+  <span class="n">innerShadow</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectInset</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Here&#39;s how it turned out:</p>
+
+<p><img src='images/blog/success1.png' width='300px' /></p>
+
+<p>That&#39;ll work! Code and demo are <a href="https://github.com/n8armstrong/fancy-inset-view">on GitHub</a>.</p>
+
+</div>
+
+<hr />
+
+<!-- start -->
+<div class="post">
+    <h2 class="post-title">
+        MySQL Permissions Tips
+    </h2>
+
+    <span class="post-date">10 Mar 2015</span>
+    <h3>By Zach Larsen -> Custom Bit Programmer</h3>
+
+    <p>Well the last time I posted it was all about MySQL, and I didn&#39;t post all I wanted to about MySQL. I&#39;ve recently learned a fair amount about MySQL permissions which are very handy indeed. Today, I&#39;ll walk you through how to set up some basic permissions for a payroll table. </p>
+
+<p>First this is the payroll table that we are going to use:</p>
+
+<p><img src='images/blog/payroll.png' width='350px' /></p>
+
+<p>First step for creating MySQL permissions, is to create a table. We will first need to create a MySQL database to hold our payroll table. To do that all we need to do is type a command inside of MySQL just like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">DROP DATABASE IF EXISTS RedFlameCompany;
+CREATE DATABASE RedFlameCompany;
+use RedFlameCompany;
+</code></pre></div>
+<p>The first line will go through and check if the local MySQL has a database named <code>RedFlameCompany</code> and if it does it drops it. Which means that it will get rid of the MySQL database. The second line means that it creates the database from scratch. The third line then tells MySQL to use the <code>RedFlameCompany</code> database.</p>
+
+<p>Next we will want to create the <code>payroll</code> table so we can give MySQL permissions to see this table:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">DROP TABLE IF EXISTS payroll;
+CREATE TABLE payroll (
+ Dept int(3),
+ Manager boolean,
+ Name varchar(30),
+ Birthdate date,
+ Salary int(7)
+);
+</code></pre></div>
+<p>This will also drop the MySQL table if it already exists, then create the MySQL table. Each line is a different column from the original payroll table that we have above.</p>
+
+<p>Next we will actually want to populate the MySQL table with the data from the picture. this is done as easy as:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">INSERT into payroll (Dept, Manager, Name, Birthdate, Salary) VALUES
+ (1, true, &quot;BOB&quot;, &quot;0001-01-01&quot;, 50000),
+ (1, false, &quot;BILL&quot;, &quot;0002-02-02&quot;, 40000),
+ (1, false, &quot;BART&quot;, &quot;0003-03-03&quot;, 70000),
+ (2, true, &quot;JIM&quot;, &quot;0004-04-04&quot;, 40000),
+ (2, false, &quot;JANET&quot;, &quot;0005-05-05&quot;, 50000),
+ (2, false, &quot;JACK&quot;, &quot;0006-06-06&quot;, 60000),
+ (3, true, &quot;MARY&quot;, &quot;0007-07-07&quot;, 50000),
+ (3, false, &quot;MARTHA&quot;, &quot;0008-08-08&quot;, 70000),
+ (3, false, &quot;MARTY&quot;, &quot;0009-09-09&quot;, 90000);
+</code></pre></div>
+<p>Make sure to use the column names that you recently created, and then put your values in in the same order that you listed them as seen above.</p>
+
+<p>Next we will want to create some MySQL views. Views are an easy way to grant MySQL permissions to someone whom you don&#39;t want be able to see all the MySQL database, and someone you especially don&#39;t want to have the ability to update or insert on your MySQL database. It is a great way to avoid MySQL injections, and create some great MySQL permissions. Let&#39;s create a MySQL view named <code>dept1</code>, <code>dept2</code>, and <code>dept3</code> so we can give every worker access to see only their department:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE VIEW dept1 AS
+ SELECT
+  Dept,
+  Manager,
+  Name,
+  Birthdate,
+  Salary
+ FROM
+  payroll
+ WHERE
+  dept = 1;
+
+CREATE VIEW dept2 AS
+ SELECT
+  Dept,
+  Manager,
+  Name,
+  Birthdate,
+  Salary
+ FROM
+  payroll
+ WHERE
+  dept = 2;
+
+CREATE VIEW dept3 AS
+ SELECT
+  Dept,
+  Manager,
+  Name,
+  Birthdate,
+  Salary
+ FROM
+  payroll
+ WHERE
+  dept = 3;
+</code></pre></div>
+<p>Now that we have created the MySQL views, we can start to create all the users and grant them their MySQL permissions. To create a user it is very easy:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE user Bob identified by &#39;password&#39;;
+CREATE user Bill identified by &#39;password&#39;;
+CREATE user Bart identified by &#39;password&#39;;
+CREATE user Jim identified by &#39;password&#39;;
+CREATE user Janet identified by &#39;password&#39;;
+CREATE user Jack identified by &#39;password&#39;;
+CREATE user Mary identified by &#39;password&#39;;
+CREATE user Martha identified by &#39;password&#39;;
+CREATE user Marty identified by &#39;password&#39;;
+</code></pre></div>
+<p>This will create all the users that are specified above, and will also assign them a password which in this case is password for everyone. </p>
+
+<p>To grant MySQL permissions we need to decide what MySQL permissions we want to assign. If we want to assign MySQL permissions to do basically anything to the database we would assign them as so:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GRANT ALL PRIVILEGES ON *.* to Mary;
+</code></pre></div>
+<p>This will give Mary MySQL permissions to do anything she pleases to the database.</p>
+
+<p>If we want to give <code>UPDATE</code> MySQL permissions to Bob for only certain MySQL database columns we can do so just like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GRANT UPDATE(Dept,Manager,Name,Birthdate) on RedFlameCompany.dept1 to Bob;
+</code></pre></div>
+<p>This will give Bob MySQL permissions to <code>UPDATE</code> the <code>Dept</code>, <code>Manager</code>, <code>Name</code>, and <code>Birthdate</code> columns on the <code>dept1</code> MySQL table. </p>
+
+<p>What if we want to grant view only MySQL permissions to someone? That will be as easy as:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GRANT SELECT(Dept,Manager,Name,Birthdate) on RedFlameCompany.dept1 to Bill;
+</code></pre></div>
+<p>Now Bill has MySQL permissions to <code>SELECT</code> or view the <code>Dept</code>, <code>Manager</code>, <code>Name</code>, and <code>Birthdate</code> columns on the <code>dept1</code> MySQL table. </p>
+
+<p>All we have left to do is to check the MySQL permissions of a user. We can do that with the <code>SHOW GRANTS</code> command: </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SHOW GRANTS For &#39;Mary&#39;;
+</code></pre></div>
+<p>Which will output:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">--------------
+SHOW GRANTS For &#39;Mary&#39;
+--------------
+
++--------------------------------------------------------------------------------------------------------------+
+| Grants for Mary@%                                                                                            |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO &#39;Mary&#39;@&#39;%&#39; IDENTIFIED BY PASSWORD &#39;*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19&#39; |
++--------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+<p>This shows that Mary truly does have MySQL permissions to do anything she wants in the MySQL database. </p>
+
+<p>The rest of my MySQL code can be found <a href="https://github.com/ZachCustomBit/School/tree/master/cs-4307">here</a>. If you have any questions or comments feel free to leave a comment below.</p>
+
+  </div>
+  <!-- end -->
+
+<div class="related">
+<h2>Related Posts</h2>
+<ul class="related-posts">
+
+    <li>
+      <h3>
+        <p>
+          Hello World
+          <small>8 Mar 2015</small>
+        </p>
+      </h3>
+    </li>
+
+</ul>
+</div>
+
+
+
+
+</div>
+
+<footer>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="our_work.html">Work</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <h4>Custom Built Mobile and Web Applications</h4>
+  <p>&#169; 2014 Custom Bit | All Rights Reserved
+</footer>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61918198-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
